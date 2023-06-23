@@ -43,7 +43,8 @@ public class ContaPoupancaDao {
                     double saldo = rs.getDouble("saldo");
                     double taxaJuros = rs.getDouble("taxa_juros");
 
-                    contaPoupanca = new ContaPoupanca(numeroConta, cpf, titular, saldo, taxaJuros);
+                    contaPoupanca = new ContaPoupanca(numeroConta, cpf, titular, saldo);
+                    contaPoupanca.setTaxaJuros(taxaJuros);
                 }
             }
         }

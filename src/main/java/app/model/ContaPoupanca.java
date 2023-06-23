@@ -1,11 +1,10 @@
 package main.java.app.model;
 
 public class ContaPoupanca extends Conta {
-    private double taxaJuros;
+    private double taxaJuros = 0.005;
 
-    public ContaPoupanca(int numero, String cpf, String titular, double saldo, double taxaJuros) {
+    public ContaPoupanca(int numero, String cpf, String titular, double saldo) {
         super(numero, cpf, titular, saldo);
-        this.taxaJuros = taxaJuros;
     }
 
     public double getTaxaJuros() {
@@ -16,10 +15,20 @@ public class ContaPoupanca extends Conta {
         this.taxaJuros = taxaJuros;
     }
 
-    public void atualizarJuros() {
-        if (getSaldo() > 0) {
-            double juros = getSaldo() * taxaJuros;
-            depositar(juros);
+    @Override
+    public void sacar(double valor) {
+        if (getSaldo() >= valor) {
+            setSaldo(getSaldo() - valor);
+        } else {
+            System.out.println("Saldo insuficiente!");
         }
+    }
+
+    @Override
+    public void depositar(double valor) {
+        double taxaJuros = getTaxaJuros();
+        double valorJuros = valor * taxaJuros;
+        valor += valorJuros;
+        setSaldo(getSaldo() + valor);
     }
 }

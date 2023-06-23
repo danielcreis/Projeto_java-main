@@ -2,6 +2,8 @@ package main.java.app;
 
 import main.java.app.dao.ContaDao;
 import main.java.app.model.Conta;
+import main.java.app.model.ContaCorrente;
+import main.java.app.model.ContaPoupanca;
 import main.java.app.database.Banco;
 
 import java.sql.Connection;
@@ -83,7 +85,19 @@ public class Main {
         System.out.println("Digite o saldo inicial:");
         double saldo = scanner.nextDouble();
 
-        Conta conta = new Conta(numero, cpf, titular, saldo);
+        System.out.println("Digite o tipo de conta (1 - Poupança, 2 - Corrente):");
+        int tipoConta = scanner.nextInt();
+
+        Conta conta;
+        if (tipoConta == 1) {
+            conta = new ContaPoupanca(numero, cpf, titular, saldo);
+        } else if (tipoConta == 2) {
+            conta = new ContaCorrente(numero, cpf, titular, saldo);
+        } else {
+            System.out.println("Tipo de conta inválido.");
+            return;
+        }
+
         try {
             contaDao.criarConta(conta);
             System.out.println("Conta criada com sucesso!");

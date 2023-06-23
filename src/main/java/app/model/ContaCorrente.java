@@ -17,14 +17,22 @@ public class ContaCorrente extends Conta {
         if (limite >= valor) {
             double saldoAtual = getSaldo();
             if (saldoAtual >= valor) {
-                super.sacar(valor);
+                setSaldo(saldoAtual - valor);
             } else {
                 double valorRestante = valor - saldoAtual;
-                super.sacar(saldoAtual);
+                setSaldo(0);
                 chequeEspecial -= valorRestante;
             }
         } else {
             System.out.println("Saldo insuficiente!");
         }
+    }
+
+    @Override
+    public void depositar(double valor) {
+        double taxaJuros = getTaxaJuros();
+        double valorJuros = valor * taxaJuros;
+        valor += valorJuros;
+        setSaldo(getSaldo() + valor);
     }
 }

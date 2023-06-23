@@ -1,6 +1,7 @@
 package main.java.app.dao;
 
 import main.java.app.model.Conta;
+import main.java.app.model.ContaCorrente;
 import main.java.app.model.ContaPoupanca;
 
 import java.sql.Connection;
@@ -29,7 +30,7 @@ public class ContaDao {
         }
     }
 
-    public Conta buscarContaPorNumero(int numero) throws SQLException {
+ public Conta buscarContaPorNumero(int numero) throws SQLException {
     String sql = "SELECT * FROM contas WHERE numero = ?";
     Conta conta = null;
 
@@ -46,9 +47,10 @@ public class ContaDao {
 
                 if (tipo.equals("Poupança")) {
                     double taxaJuros = rs.getDouble("taxa_juros");
-                    conta = new ContaPoupanca(numeroConta, cpf, titular, saldo, taxaJuros);
-                } else {
-                    conta = new Conta(numeroConta, cpf, titular, saldo);
+                    conta = new ContaPoupanca(numeroConta, cpf, titular, saldo);
+                    ((ContaPoupanca) conta).setTaxaJuros(taxaJuros);
+                } else if (tipo.equals("Corrente")) {
+                    conta = new ContaCorrente(numeroConta, cpf, titular, saldo);
                 }
             }
         }
