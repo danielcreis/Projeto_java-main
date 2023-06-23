@@ -62,7 +62,7 @@ public class Main {
     }
 
     private static void exibirMenu() {
-        System.out.println("-------- MENU --------");
+        System.out.println("-------- BANCO JAVA LI --------");
         System.out.println("1. Criar conta");
         System.out.println("2. Realizar depósito");
         System.out.println("3. Realizar saque");

@@ -11,22 +11,28 @@ public class ContaCorrente extends Conta {
         return chequeEspecial;
     }
 
-    @Override
-    public void sacar(double valor) {
-        double limite = getSaldo() + chequeEspecial;
-        if (limite >= valor) {
-            double saldoAtual = getSaldo();
-            if (saldoAtual >= valor) {
-                setSaldo(saldoAtual - valor);
-            } else {
-                double valorRestante = valor - saldoAtual;
-                setSaldo(0);
-                chequeEspecial -= valorRestante;
-            }
+   @Override
+public void sacar(double valor) {
+    double limite = getSaldo() + getChequeEspecial();
+    
+    if (valor <= limite) {
+        if (valor <= getSaldo()) {
+            setSaldo(getSaldo() - valor);
         } else {
-            System.out.println("Saldo insuficiente!");
+            double valorRestante = valor - getSaldo();
+            setSaldo(0);
+            setChequeEspecial(getChequeEspecial() - valorRestante);
         }
+        
+        System.out.println("Saque realizado com sucesso!");
+        System.out.println("Novo saldo da conta: R$" + getSaldo());
+    } else {
+        System.out.println("Saldo insuficiente! Limite disponível: R$" + limite);
     }
+}
+
+    private void setChequeEspecial(double d) {
+}
 
     @Override
     public void depositar(double valor) {

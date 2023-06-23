@@ -38,10 +38,10 @@ public abstract class Conta {
     public abstract void depositar(double valor);
 
     public double getChequeEspecial() {
-        return 0; // Implemente o método nas subclasses
+        return 0; 
     }
 
     public double getTaxaJuros() {
-        return 0; // Implemente o método nas subclasses
+        return 0; 
     }
 }
